@@ -1,4 +1,4 @@
-import type { CardProps } from "../types/Card";
+import type { CardProps } from "../../types/Card";
 
 const Card = ({title, icon, children}: CardProps) => {
     return(

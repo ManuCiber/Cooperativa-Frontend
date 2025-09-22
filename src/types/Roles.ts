@@ -1,0 +1,59 @@
+export type RolesName = "admin" | "gerente" | "oficialNgeocios" | "oficialServicios" | "cajero"
+
+export type Permission = 
+| 'GESTIONAR_USUARIOS'
+| 'GESTIONAR_EMPLEADOS'
+| 'GESTIONAR_SOCIOS'
+| 'GESTIONAR_CUENTAS'
+| 'GESTIONAR_PRESTAMOS'
+| 'REGISTRAR_PAGOS_PRESTAMOS'
+| 'GESTIONAR_TRANSACCIONES'
+| 'REGISTRAR_APORTACIONES'
+| 'GESTIONAR_GARANTIAS'
+| 'GESTIONAR_PRODUCTOS'
+| 'ACCESO_REPORTES'
+| 'APROBAR_OPERACIONES'
+| 'CONSULTAR_INFORMACION';
+
+export const rolePermissions: Record<RolesName, Permission[]> = {
+    admin:[
+        'GESTIONAR_USUARIOS',
+        'GESTIONAR_EMPLEADOS',
+        'GESTIONAR_SOCIOS',
+        'GESTIONAR_CUENTAS',
+        'GESTIONAR_PRESTAMOS',
+        'REGISTRAR_PAGOS_PRESTAMOS',
+        'GESTIONAR_TRANSACCIONES',
+        'REGISTRAR_APORTACIONES',
+        'GESTIONAR_GARANTIAS',
+        'GESTIONAR_PRODUCTOS',
+        'ACCESO_REPORTES',
+    ],
+    gerente:[
+        'GESTIONAR_USUARIOS',
+        'GESTIONAR_EMPLEADOS',
+        'GESTIONAR_SOCIOS',
+        'APROBAR_OPERACIONES',
+        'CONSULTAR_INFORMACION',
+        'ACCESO_REPORTES',
+        'GESTIONAR_PRODUCTOS',
+    ],
+    oficialNgeocios:[
+        'GESTIONAR_PRESTAMOS',
+        'GESTIONAR_GARANTIAS',
+        'CONSULTAR_INFORMACION',
+        'GESTIONAR_PRODUCTOS',
+    ],
+    oficialServicios:[
+        'GESTIONAR_SOCIOS',
+        'GESTIONAR_CUENTAS',
+        'REGISTRAR_APORTACIONES',
+        'CONSULTAR_INFORMACION',
+        'GESTIONAR_PRODUCTOS',
+    ],
+    cajero:[
+        'GESTIONAR_TRANSACCIONES',
+        'REGISTRAR_PAGOS_PRESTAMOS',
+        'CONSULTAR_INFORMACION',
+    ]
+}
