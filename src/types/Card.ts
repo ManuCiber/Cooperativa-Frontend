@@ -1,7 +1,6 @@
-import type { ReactNode } from "react";
-
 export interface CardProps {
-    title: string;
-    icon?:string;
-    children: ReactNode
+  title?: string;
+  className?: string;
+  children: React.ReactNode;
 }
+

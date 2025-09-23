@@ -1,15 +1,12 @@
 import type { CardProps } from "../../types/Card";
 
-const Card = ({title, icon, children}: CardProps) => {
-    return(
-        <div>
-            <h2>
-                {icon && <i className={icon}></i>}
-                {title}
-            </h2>
-            <div className="text-gray-700 font-bold text-xl">{children}</div>
-        </div>
-    )
-}
+const Card: React.FC<CardProps> = ({ title, className = "", children }) => {
+  return (
+    <div className={`rounded-lg shadow-md p-4 ${className}`}>
+      {title && <h3 className="text-lg font-semibold mb-2">{title}</h3>}
+      <div>{children}</div>
+    </div>
+  );
+};
 
 export default Card;
