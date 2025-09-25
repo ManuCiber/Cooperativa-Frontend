@@ -38,6 +38,7 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
             const loggedUser = await loginService(identifier, password);
             setUser(loggedUser);
             localStorage.setItem("user",JSON.stringify(loggedUser))
+            
         } catch (error) {
             throw error;
         }
