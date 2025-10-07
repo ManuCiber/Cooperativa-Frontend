@@ -1,5 +1,7 @@
 import GenericForm
  from "../../../components/UI/GenericForm";
+import { create } from "../../../services/service";
+import type { User } from "../../../types/User";
 
  
 const RegisterUser = () => {
@@ -41,7 +43,7 @@ const RegisterUser = () => {
           type: "select",
           multiple: true, // ✅ permite seleccionar varios
           options: [
-            { label: "Admin", value: "admin" },
+            { label: "Admin", value: "administrador" },
             { label: "Gerente", value: "gerente" },
             { label: "Oficial de Negocios", value: "oficial_negocios" },
             { label: "Oficial de Servicios", value: "oficial_servicios" },
@@ -50,13 +52,13 @@ const RegisterUser = () => {
         },
       ]}
       onSubmit={async (data) => {
-        const res = await fetch("/api/usuarios", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        if (!res.ok) throw new Error("Error al registrar usuario");
-        console.log("✅ Usuario creado:", await res.json());
+        try {
+          const res = await create<User>("/api/empleados/",data);
+          console.log("Usuario creado: ", res);
+        } catch (error){  
+            console.error("Error al Crear Usuario: ", error);
+        }
+        console.log(data)
       }}
       submitText="Registrar Usuario"
     />
