@@ -1,5 +1,5 @@
 export interface ButtonProps {
-    text: string;
+    text?: string;
     onClick?: () => void;
     type?: 'primary' | 'secondary' | 'danger';
     icon?: string; // clase de FontAwesome: "fa-solid fa-plus"

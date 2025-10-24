@@ -2,7 +2,6 @@
 
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import Card from "../../components/UI/Card";
-import { useAuth } from "../../hooks/useAuth";
 import DashboardLayout from "../../layouts/DashboardLayout";
 
 const charData = [
@@ -13,28 +12,53 @@ const charData = [
 ]
 
 const DashboardPage: React.FC = () => {
-    const {user} = useAuth();
-
     return(
         <DashboardLayout>
-            {/*Saludo*/}
-            <h2 className="text-2xl font-semibold mb-4">
-                Bienvenido, {user?.name}
-            </h2>
 
-            {/*Cards Con Metricas*/}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <Card title="Total Socios" className="bg-cyan-600 text-white">
-                    <p className="text-2xl font-bold">150</p>
-                </Card>
-                <Card title="Prestamos Activos" className="bg-blue-700 text-white">
-                    <p className="text-2xl font-bold">12</p>
-                </Card>
-                <Card title="Ingresos del mes" className="bg-cyan-800 text-white">
-                    <p className="text-2xl font-bold">RD$10,900.00</p>
-                </Card>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {/* Tarjetas resumen tipo cooperativa */}
+            <div className="bg-white p-5 rounded-xl shadow hover:shadow-md transition border-l-4 border-cyan-600">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-sm text-gray-500 font-medium">Total Socios</h3>
+                  <p className="text-2xl font-semibold text-gray-800">1,254</p>
+                </div>
+                <i className="fa-solid fa-users text-cyan-600 text-3xl"></i>
+              </div>
             </div>
 
+            <div className="bg-white p-5 rounded-xl shadow hover:shadow-md transition border-l-4 border-emerald-500">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-sm text-gray-500 font-medium">Ahorros Activos</h3>
+                  <p className="text-2xl font-semibold text-gray-800">$ 82,500</p>
+                </div>
+                <i className="fa-solid fa-piggy-bank text-emerald-500 text-3xl"></i>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-xl shadow hover:shadow-md transition border-l-4 border-indigo-500">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-sm text-gray-500 font-medium">Préstamos Vigentes</h3>
+                  <p className="text-2xl font-semibold text-gray-800">$ 45,200</p>
+                </div>
+                <i className="fa-solid fa-hand-holding-dollar text-indigo-500 text-3xl"></i>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-xl shadow hover:shadow-md transition border-l-4 border-amber-500">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-sm text-gray-500 font-medium">Pagos del Mes</h3>
+                  <p className="text-2xl font-semibold text-gray-800">$ 12,480</p>
+                </div>
+                <i className="fa-solid fa-money-bill-transfer text-amber-500 text-3xl"></i>
+              </div>
+            </div>
+          </div>
+          
+            {/*Cards Con Metricas*/}
             {/*Grafico*/}
 
             <Card title="Ingresos vs Gastos">

@@ -1,5 +1,5 @@
-import type { RolesName, Permission } from "./Roles";
-import type { User } from "./User";
+import type { RolesName, Permission } from "../Roles";
+import type { User } from "../Models/User";
 
 export interface AuthContextType {
   user: User | null;

@@ -234,12 +234,13 @@
 
 
 import { useState } from "react";
-import Input from "../../components/UI/Input";
-import Button from "../../components/UI/Button";
-import { useAuth } from "../../hooks/useAuth";
+import Input from "../../../components/UI/Input";
+import Button from "../../../components/UI/Button";
+//import { useAuth } from "../../../hooks/useAuth";
+import { create } from "../../../services/service";
 
 const Register: React.FC = () => {
-  const { login } = useAuth(); // ⚠️ luego cambia por registerService
+  //const { login } = useAuth(); // ⚠️ luego cambia por registerService
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -261,7 +262,8 @@ const Register: React.FC = () => {
     setLoading(true);
     try {
       // aquí deberías usar registerService
-      await login(username || email, password);
+      //await login(username || email, password);
+      await create("/add", { name, email, username, password });
     } catch (err: any) {
       setError("Error al registrar el usuario");
     } finally {

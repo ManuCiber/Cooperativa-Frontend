@@ -155,10 +155,10 @@
 // export default Login
 
 import { useState } from "react";
-import { loginService } from "../../services/authService";
-import Input from "../../components/UI/Input";
-import Button from "../../components/UI/Button";
 import { useNavigate } from "react-router-dom";
+import { loginService } from "../../../services/authService";
+import Input from "../../../components/UI/Input";
+import Button from "../../../components/UI/Button";
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
@@ -172,11 +172,25 @@ const Login: React.FC = () => {
         e.preventDefault()
         setError(null);
         setLoading(true);
+
+        console.log("Datos enviados: ", {
+            identifier,
+            password: password ? "********" : "VACIO",
+            identifierLength: identifier.length,
+            passwordLength: password.length
+        })
+
         try {
             const response = await loginService(identifier, password);
-            console.log(response);
+            console.log("Respuesta del servidor",response);
+            const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            console.log("Token almacenado:", token ? "Existe" : "No existe");
+
             navigate("/dashboard", { replace: true });
         } catch (error: any) {
+            console.error("Error durante el login:", error);
+            console.error("Error response data:", error?.response?.data);
+            console.error("Error response status:", error?.response?.status);
             setError(error?.message || "Credenciales inválidas. Favor revisar error");
         } finally {
             setLoading(false)
@@ -226,7 +240,7 @@ const Login: React.FC = () => {
                                 type="text" 
                                 placeholder="Ingresa tu Usuario o Correo" 
                                 value={identifier} 
-                                onChange={(e) => setIdentifier(e.target.value)}
+                                onChange={(e:React.ChangeEvent<HTMLInputElement>) => setIdentifier(e.target.value)}
                                 icon="fa-solid fa-user"
                                 className="bg-white/10 border-white/30 text-white placeholder-white/60 focus:border-white/50 focus:bg-white/20"
                             />
@@ -235,7 +249,7 @@ const Login: React.FC = () => {
                                 type="password" 
                                 placeholder="Ingresa tu contraseña" 
                                 value={password} 
-                                onChange={(e) => setPassword(e.target.value)} 
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} 
                                 icon="fa-solid fa-lock"
                                 className="bg-white/10 border-white/30 text-white placeholder-white/60 focus:border-white/50 focus:bg-white/20"
                             />
@@ -251,10 +265,10 @@ const Login: React.FC = () => {
                         )}
 
                         {/* ✅ Botón con efecto glassmorphism */}
-                        <Button 
+                        <Button
                             text={loading ? "Cargando..." : "Ingresar"} 
                             type="primary" 
-                            onClick={()=>handleSubmit}
+                            onClick={handleSubmit}
                             disabled={loading} 
                             className="w-full bg-white/20 hover:bg-white/30 border border-white/30 text-white font-semibold py-3 backdrop-blur-sm transition-all duration-300 hover:shadow-lg" 
                             icon={loading ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-right-to-bracket"}

@@ -1,7 +1,7 @@
 import GenericForm
  from "../../../components/UI/GenericForm";
 import { create } from "../../../services/service";
-import type { User } from "../../../types/User";
+import type { User } from "../../../types/Models/User";
 
  
 const RegisterUser = () => {

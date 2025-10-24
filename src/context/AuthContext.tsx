@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import type { AuthContextType } from "../types/AuthContext";
-import type { User } from "../types/User";
+import type { AuthContextType } from "../types/Context/AuthContext";
+import type { User } from "../types/Models/User";
 import { rolePermissions, type Permission, type RolesName } from "../types/Roles";
 import { getProfileService, loginService, logoutService } from "../services/authService";
 

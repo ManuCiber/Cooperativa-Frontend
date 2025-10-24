@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios"
 import type { FetchState } from "../types/FetchState";
 import type { AxiosRequestConfig } from "axios";
+import api from "../services/api";
 /**
  * Hook genérico para consumir APIs con Axios.
  * @param url - endpoint a consultar
@@ -19,7 +19,7 @@ export function useFetch<T = unknown>(url: string, config?: AxiosRequestConfig) 
 
     const fetchData = async () => {
       try {
-        const response = await axios.get<T>(url, config);
+        const response = await api.get<T>(url, config);
         if (isMounted) {
           setState({ data: response.data, loading: false, error: null });
         }
