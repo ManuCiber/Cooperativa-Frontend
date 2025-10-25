@@ -10,6 +10,7 @@ import UserPage from './pages/Users/Users'
 import NewUserPage from './pages/Users/NewUser'
 import EmpleadosPage from './pages/Empleados/Empleados'
 import NewEmpleadoPage from './pages/Empleados/NewEmpleado'
+import EmpleadoEditPage from './pages/Empleados/EditEmpleado'
 //import Login from './pages/Auth/LoginPage'
 //import RegisterUser from './pages/Register/Register-Users/Register'
 //import Login from './pages/Auth/Login/LoginPage'
@@ -30,6 +31,7 @@ function App() {
         <Route path='/users/new' element={<NewUserPage />} />
         <Route path='/empleados' element ={<EmpleadosPage/>}/>
         <Route path='/empleados/new' element ={<NewEmpleadoPage/>}/>
+        <Route path='/empleados/edit/:id' element ={<EmpleadoEditPage/>}/>
         <Route path='/dashboard/*' element={<DashboardPage />} />
         <Route path='/socios' element={<SocioList/>}/>
         <Route path='/404' element={<NotFound />} />
