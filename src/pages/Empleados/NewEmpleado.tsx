@@ -1,11 +1,15 @@
+import { useState } from "react";
+import SuccessModal from "../../components/Modal/ModalNotificacion";
 import { GenericForm } from "../../components/UI/Form";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { create } from "../../services/service";
 import type { Field } from "../../types/Components/Form"
-import type { NewUser } from "../../types/Models/NewUser";
+import type { Empleado } from "../../types/Models/Empleados";
 
-const NewUserPage: React.FC  = () => {
-    
+const NewEmpleadoPage: React.FC  = () => {
+
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
     const fields: Field[] =[
         {name: "nombre", label: "Nombre", type: "text", placeholder: "Ingrese el nombre", required: true},
         {name: "apellidos", label: "Apellidos", type: "text", placeholder: "Ingrese los apellidos", required: true},
@@ -18,29 +22,29 @@ const NewUserPage: React.FC  = () => {
             label: "Estado de Usuario",
             type: "select",
             options:[
-                { label: "Activo", value: "activo" },
-                { label: "Inactivo", value: "inactivo" },
+                { label: "Activo", value: "Activo" },
+                { label: "Inactivo", value: "Inactivo" },
             ], required: true
-        }
+        },
+        {name: "salario", label: "Salario", type: "number", placeholder: "Ingrese el Salario", required: true},
     ];
 
     const initialValues = {
         nombre: "",
         apellidos: "",
-        username: "",
-        email: "",
-        password: "",
+        dni_cedula: "",
         cargo: "",
-        rol: "",
-        estado: "activo"
+        departamento: "",
+        fecha_contratacion: "",
+        salario: 0,
+        estado: "Activo"
     };
 
-    const handleSubmit = async (values: NewUser) => {
+    const handleSubmit = async (values: Empleado) => {
         try{
-            const response = await create<NewUser>("/usuarios/add", values);
+            const response = await create<Empleado>("/empleados/", values);
             console.log (response);
-            console.log("Valores del formulario:", values);
-            console.log("Datos enviados al crear usuario", values);
+            setShowSuccessModal(true);
         }catch(error:any){
             console.error("Error al crear el usuario:", error.response?.data || error.message);
         }
@@ -50,16 +54,22 @@ const NewUserPage: React.FC  = () => {
     <DashboardLayout>
         <div className="min-h-screen flex justify-center items-center bg-gray-100">
             <div className="w-full max-w-2xl bg-white rounded-2xl shadow p-8">
-                <h2 className="text-2xl font-bold mb-6 text-center">Crear Nuevo Usuario</h2>
-                <GenericForm<NewUser>
-                    initialValues={initialValues as unknown as NewUser}
+                <h2 className="text-2xl font-bold mb-6 text-center">Crear Nuevo Empleado</h2>
+                <GenericForm<Empleado>
+                    initialValues={initialValues as unknown as Empleado}
                     fields={fields as unknown as any}
                     onSubmit={handleSubmit}
                 />
             </div>
         </div>
+
+        <SuccessModal
+            show={showSuccessModal}
+            message="El empleado ha sido creado exitosamente !."
+            onClose={() => setShowSuccessModal(false)}
+        />
     </DashboardLayout>
     )
 }
 
-export default NewUserPage;
+export default NewEmpleadoPage;
