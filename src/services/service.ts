@@ -21,6 +21,10 @@ export async function update<T> (url: string, id: number|string, body: Partial<T
 }
 
 
-export async function remove (url: string, id: number | string): Promise<void> {
-    await api.delete(`${url}/${id}`)
-}
+export const remove = async (endpoint: string, id: number | string) => {
+  const cleanEndpoint = endpoint.endsWith("/")
+    ? endpoint.slice(0, -1)
+    : endpoint;
+  const response = await api.delete(`${cleanEndpoint}/${id}`);
+  return response.data;
+};

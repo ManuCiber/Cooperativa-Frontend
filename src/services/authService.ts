@@ -43,7 +43,7 @@ export const getProfileService = async () => {
     if(!token){
         throw new Error("El token no existe");
     }
-    const res = await api.get("/api/usuarios/user", {
+    const res = await api.get("", {
         headers: {Authorization: `Bearer ${token}`}
     })
 

@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { GenericForm } from "../../components/UI/Form";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { create } from "../../services/service";
 import type { Field } from "../../types/Components/Form"
 import type { NewUser } from "../../types/Models/NewUser";
+import SuccessModal from "../../components/Modal/ModalNotificacion";
 
 const NewUserPage: React.FC  = () => {
-    
+    const [showingSuccessModal, setShowingSuccessModal] = useState(false);
+
     const fields: Field[] =[
         {name: "nombre", label: "Nombre", type: "text", placeholder: "Ingrese el nombre", required: true},
         {name: "apellidos", label: "Apellidos", type: "text", placeholder: "Ingrese los apellidos", required: true},
@@ -40,10 +43,11 @@ const NewUserPage: React.FC  = () => {
 
     const handleSubmit = async (values: NewUser) => {
         try{
-            const response = await create<NewUser>("/usuarios/add", values);
+            const response = await create<NewUser>("/usuarios", values);
             console.log (response);
             console.log("Valores del formulario:", values);
             console.log("Datos enviados al crear usuario", values);
+            setShowingSuccessModal(true);
         }catch(error:any){
             console.error("Error al crear el usuario:", error.response?.data || error.message);
         }
@@ -61,6 +65,13 @@ const NewUserPage: React.FC  = () => {
                 />
             </div>
         </div>
+
+        <SuccessModal
+            show={showingSuccessModal}
+            message="Nuevo Usuario creado exitosamente !."
+            onClose={() => setShowingSuccessModal(false)}
+        />
+
     </DashboardLayout>
     )
 }
